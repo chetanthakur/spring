@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.devmanuals.model.Article;
+import net.devmanuals.model.Employee;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,12 @@ public class ArticleDaoImpl implements ArticleDao {
 	
 	// To get list of all articles
 	@SuppressWarnings("unchecked")
-	public List<Article> listArticles() {		
+	public List<Article> listArticles() {
 		return (List<Article>) sessionFactory.getCurrentSession().createCriteria(Article.class).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Employee> listEmployee() {		
+		return (List<Employee>) sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
 	}
 }

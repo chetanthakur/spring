@@ -8,8 +8,8 @@
 </head>
 <body>
 <a href="articles/add.html">Add Articles</a><br>
-<a href="articles/list.html">List Articles</a><br>
+<a href="articles.html">List Articles</a><br>
 <a href="user/add.html">Add User</a><br>
-<a href="user/add.html">List User</a><br>
+<a href="user.html">List User</a><br>
 </body>
 </html>

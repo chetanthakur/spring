@@ -3,6 +3,7 @@ package net.devmanuals.dao;
 import java.util.List;
 
 import net.devmanuals.model.Article;
+import net.devmanuals.model.Employee;
 
 
 public interface ArticleDao  {
@@ -11,4 +12,7 @@ public interface ArticleDao  {
 	
 	// To get list of all articles
 	public List<Article> listArticles();
+	
+	// To get list of all Employees
+	public List<Employee> listEmployee();
 }

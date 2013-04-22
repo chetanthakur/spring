@@ -3,7 +3,6 @@ package net.devmanuals.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.devmanuals.dao.ArticleDao;
 import net.devmanuals.model.Article;
 import net.devmanuals.service.ArticleService;
 
@@ -22,9 +21,6 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
-	@Autowired
-	private ArticleDao articleDao;
-
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveArticle(@ModelAttribute(" article") Article  article,
 			BindingResult result) {
@@ -35,8 +31,8 @@ public class ArticleController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listArticles() {
 		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("employee", articleService.listEmployee());
 		model.put("articles",  articleService.listArticles());
-
 		return new ModelAndView("articlesList", model);
 	}
 
