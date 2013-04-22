@@ -10,7 +10,7 @@ public class AspectController {
 
 	@Before("execution(* net.devmanuals.service.*.*(..))")
 	public void takeSeats() {
-		System.out.println("The audience is taking their seats.");
+		System.out.println("Aspect Pogramming implemented");
 	}
 
 }
