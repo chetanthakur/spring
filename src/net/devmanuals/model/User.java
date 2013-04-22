@@ -202,8 +202,6 @@ public class User implements Serializable {
 	 */
 	public final String getDecryptedPassword() {
 		if (this.passwordType == PasswordType.HASH) {
-			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt);
-			//return encoder.encode(this.passwordHash);
 			throw new RuntimeException("Unable to decrypt a hashed password, user id: " + this.id);
 		}
 		else {
