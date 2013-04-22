@@ -24,7 +24,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addArticle(@ModelAttribute("user") User user ,
+	public ModelAndView addUser(@ModelAttribute("user") User user ,
 			BindingResult result) {
 		return new ModelAndView("addUser");
 	}
@@ -39,7 +39,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listArticles() {
+	public ModelAndView listUser() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("users",  userService.listUsers());
 		return new ModelAndView("userList", model);

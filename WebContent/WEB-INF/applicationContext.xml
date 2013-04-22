@@ -10,6 +10,4 @@
 	<!-- This configuration by default is loaded by the context listener and 
 		should be used by controllers that are defined in dispatcher servlet(s). -->
 	<import resource="/spring-security.xml" />
-
-
 </beans>

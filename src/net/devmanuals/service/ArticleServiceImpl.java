@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("articleService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class ArticleServiceImpl implements ArticleService {
-
+	
 	@Autowired
 	private ArticleDao articleDao;
 
@@ -27,6 +27,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	public List<Article> listArticles() {
+		System.out.println("listArticles()");
 		return articleDao.listArticles();
 	}
 
