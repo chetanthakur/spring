@@ -13,8 +13,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "EMPLOYEE")
+@Cache(region = "employee" ,usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Employee {
 
 	@Id

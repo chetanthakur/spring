@@ -30,7 +30,7 @@ public class ArticleController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listArticles() {
-		System.out.println("lsit the artilces");
+		System.out.println("list the artilces controller");
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("employee", articleService.listEmployee());
 		model.put("articles",  articleService.listArticles());

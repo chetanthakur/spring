@@ -5,6 +5,9 @@ import java.util.List;
 import net.devmanuals.dao.ArticleDao;
 import net.devmanuals.model.Article;
 import net.devmanuals.model.Employee;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Autowired
 	private ArticleDao articleDao;
+	
+	@Autowired
+	public CacheManager cacheManager;
 
 	public ArticleServiceImpl() {
 	}
@@ -32,6 +38,8 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	public List<Employee> listEmployee() {
+		Cache cache=cacheManager.getCache("employee");
+		cache.put(new Element("chetan",articleDao.listEmployee()));
 		return articleDao.listEmployee();
 	}
 

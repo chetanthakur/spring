@@ -29,7 +29,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Employee> listEmployee() {		
+	public List<Employee> listEmployee() {
 		return (List<Employee>) sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
 	}
 }
