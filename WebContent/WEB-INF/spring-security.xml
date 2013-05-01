@@ -23,13 +23,18 @@
 	 <http auto-config="true">
 		<intercept-url pattern="/articles*" access="ROLE_USER" />
 	</http>
+	
+	<beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder">
+    </beans:bean>
  
 	<authentication-manager>
-		<authentication-provider user-service-ref="userService" />
+		<authentication-provider user-service-ref="userService" >
+		<password-encoder ref="passwordEncoder"></password-encoder>
+		</authentication-provider>
 	</authentication-manager>
 	
-	<jdbc-user-service id="userService" data-source-ref="dataSource"
-	users-by-username-query="select username,password from spring.users where username=?"
-	authorities-by-username-query="select username,'ROLE_USER' from spring.users where username=?" />
+	<jdbc-user-service id="userService" data-source-ref="dataSource" 
+	users-by-username-query="select username,password,true from users where username=?"
+	authorities-by-username-query="select username,'ROLE_USER' from users where username=?" />
  
 </beans:beans>

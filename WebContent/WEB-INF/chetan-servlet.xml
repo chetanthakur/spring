@@ -17,7 +17,6 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
-	<context:property-placeholder location="classpath:jdbc.properties" />
 
 	<ehcache:annotation-driven cache-manager="cacheManager" />
 	
@@ -35,14 +34,6 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${database.driver}" />
-		<property name="url" value="${database.url}" />
-		<property name="username" value="${database.user}" />
-		<property name="password" value="${database.password}" />
 	</bean>
 
 	<bean id="sessionFactory"
