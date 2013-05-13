@@ -12,24 +12,29 @@
 	
 	<context:property-placeholder location="classpath:jdbc.properties" />
 
-	<beans:bean id="dataSource"
+	<!-- <beans:bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="${database.driver}" />
 		<beans:property name="url" value="${database.url}" />
 		<beans:property name="username" value="${database.user}" />
 		<beans:property name="password" value="${database.password}" />
-	</beans:bean> 
+	</beans:bean>  -->
+	
+	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<beans:property name="jndiName" value="jdbc/mysql" ></beans:property>
+		<beans:property name="resourceRef" value="true" />
+	</beans:bean>
 	
 	 <http auto-config="true">
 		<intercept-url pattern="/articles*" access="ROLE_USER" />
 	</http>
 	
-	<beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder">
-    </beans:bean>
+	<!-- <beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder">
+    </beans:bean> -->
  
 	<authentication-manager>
 		<authentication-provider user-service-ref="userService" >
-		<password-encoder ref="passwordEncoder"></password-encoder>
+		<!-- <password-encoder ref="passwordEncoder"></password-encoder> -->
 		</authentication-provider>
 	</authentication-manager>
 	
