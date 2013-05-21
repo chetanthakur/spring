@@ -6,8 +6,10 @@ import net.devmanuals.model.Employee;
 import net.devmanuals.model.Meeting;
 import net.devmanuals.model.User;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("userDao")
 @Transactional
 public class UserDaoImpl implements UserDao {
+	
+	private final static Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -40,6 +44,8 @@ public class UserDaoImpl implements UserDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<User> listUsers() {		
+		Statistics statistics = sessionFactory.getStatistics();
+		LOGGER.info("====================="+statistics+"===========================");
 		return (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
 	

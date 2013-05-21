@@ -16,12 +16,15 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Table(name = "users")
 @Entity(name = "User")
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class User implements Serializable {
 	private static final long serialVersionUID = -4930636375444147252L;
 

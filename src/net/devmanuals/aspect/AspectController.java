@@ -15,5 +15,4 @@ public class AspectController {
 	public void beforeAnyService() {
 		LOGGER.info("Aspect Pogramming implemented");
 	}
-
 }
