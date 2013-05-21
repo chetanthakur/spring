@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
-	http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-	
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+					http://www.springframework.org/schema/security 
+					http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!-- <beans:bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<beans:property name="driverClassName" value="${database.driver}" />
-		<beans:property name="url" value="${database.url}" />
-		<beans:property name="username" value="${database.user}" />
-		<beans:property name="password" value="${database.password}" />
-	</beans:bean>  -->
+	<!-- Turn on annotation based security -->
+	<global-method-security secured-annotations="enabled" pre-post-annotations="enabled" authentication-manager-ref="authenticationManager" access-decision-manager-ref="accessDecisionManager" />
 	
-	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<beans:property name="jndiName" value="jdbc/mysql" ></beans:property>
-		<beans:property name="resourceRef" value="true" />
+	<beans:bean id="authenticationProvider" class="net.devmanuals.web.security.AuthenticationProvider">
 	</beans:bean>
 	
-	 <http auto-config="true">
-		<intercept-url pattern="/articles*" access="ROLE_USER" />
-	</http>
-	
-	<!-- <beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder">
-    </beans:bean> -->
- 
-	<authentication-manager>
-		<authentication-provider user-service-ref="userService" >
-		<!-- <password-encoder ref="passwordEncoder"></password-encoder> -->
-		</authentication-provider>
+	<authentication-manager id="authenticationManager">
+		<authentication-provider ref="authenticationProvider" />	
 	</authentication-manager>
+
+	<beans:bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
+	<beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+		<beans:property name="rolePrefix" value="" />
+	</beans:bean>
 	
-	<jdbc-user-service id="userService" data-source-ref="dataSource" 
-	users-by-username-query="select username,password,true from users where username=?"
-	authorities-by-username-query="select username,'ROLE_USER' from users where username=?" />
- 
+	<beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:property name="decisionVoters">
+			<beans:list>
+				<beans:ref bean="roleVoter" />
+				<beans:ref bean="authenticatedVoter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- Now doing the final wiring all spring security filter chain and configuration. -->
+	<http use-expressions="true" authentication-manager-ref="authenticationManager" auto-config="true" >
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/index.jsp" access="permitAll" />
+		<intercept-url pattern="/articles/**" access="permitAll" />
+		<intercept-url pattern="/user/**" access="permitAll" />
+		<intercept-url pattern="/user.html" access="permitAll" />
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<form-login login-processing-url="/doLogin"  authentication-failure-url="/?login_error" username-parameter="username" password-parameter="password" />
+		<logout logout-url="/logout" invalidate-session="true" logout-success-url="/" />
+	</http>
 </beans:beans>

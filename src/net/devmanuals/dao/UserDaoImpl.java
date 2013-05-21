@@ -6,16 +6,19 @@ import net.devmanuals.model.Employee;
 import net.devmanuals.model.Meeting;
 import net.devmanuals.model.User;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("userDao")
+@Transactional
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
 
 	public void saveUser(User user) {
 		Meeting meeting1 = new Meeting("Quaterly Sales meeting");
@@ -38,5 +41,13 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	public List<User> listUsers() {		
 		return (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class).list();
+	}
+	
+	public User findByUserName(String username) {
+		Query query = sessionFactory.getCurrentSession().createQuery("from User where username = :username");
+		query.setParameter("username", username);
+		List list = query.list();
+		return (User) list.get(0);
+        
 	}
 }

@@ -4,30 +4,21 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
 	xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/tx
-http://www.springframework.org/schema/tx/spring-tx.xsd
-http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring 
-http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring 
+	http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
 
-	<aop:aspectj-autoproxy />
-	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
-
-	<ehcache:annotation-driven cache-manager="cacheManager" />
 	
-	<bean id="cacheManager"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation" value="/WEB-INF/ehcache.xml" />
-	</bean>
- 
-	<context:component-scan base-package="net.devmanuals" />
-
-
+	<context:component-scan base-package="net.devmanuals.controller.**" />
+	
+	<!-- <tx:annotation-driven transaction-manager="hibernateTransactionManager" proxy-target-class="true"/> -->
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
@@ -36,23 +27,4 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="net.devmanuals.model" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
-			</props>
-		</property>
-	</bean>
-
-	<bean id="hibernateTransactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 </beans>
