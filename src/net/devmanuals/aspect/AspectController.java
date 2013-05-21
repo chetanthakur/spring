@@ -12,7 +12,7 @@ public class AspectController {
 	private final static Logger LOGGER = Logger.getLogger(AspectController.class); 
 
 	@Before("execution(* net.devmanuals.service.*.*(..))")
-	public void takeSeats() {
+	public void beforeAnyService() {
 		LOGGER.info("Aspect Pogramming implemented");
 	}
 

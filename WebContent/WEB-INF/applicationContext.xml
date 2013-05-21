@@ -34,6 +34,7 @@
 	
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="net.devmanuals.service.**" />
+	<context:component-scan base-package="net.devmanuals.aspect.**" />
 	
 	<bean id="cacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">

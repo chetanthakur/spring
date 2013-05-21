@@ -5,6 +5,8 @@ THIS IS PROJECT WHICH WORK WITH THER INGERATION OF SPRING AND HIBERNATE.
 
 Please make following entry in context.xml
 
+///////////////////////////////////////
+==============================================
  <Resource name="jdbc/mysql" auth="Container" type="javax.sql.DataSource" 
 	driverClassName="com.mysql.jdbc.Driver" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
 	url="jdbc:mysql://localhost/spring" username="root" password="root"

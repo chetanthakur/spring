@@ -17,8 +17,7 @@
 
 	
 	<context:component-scan base-package="net.devmanuals.controller.**" />
-	
-	<!-- <tx:annotation-driven transaction-manager="hibernateTransactionManager" proxy-target-class="true"/> -->
+
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
