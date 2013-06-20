@@ -13,6 +13,6 @@ public class AspectController {
 
 	@Before("execution(* net.devmanuals.service.*.*(..))")
 	public void beforeAnyService() {
-		LOGGER.info("Aspect Pogramming implemented");
+		LOGGER.info("Aspect Pogramming implemented on all service methods");
 	}
 }
