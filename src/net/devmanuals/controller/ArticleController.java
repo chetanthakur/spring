@@ -22,7 +22,7 @@ public class ArticleController {
 	private ArticleService articleService;
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveArticle(@ModelAttribute(" article") Article  article,
+	public ModelAndView saveArticle(@ModelAttribute("article") Article  article,
 			BindingResult result) {
 		articleService.addArticle( article);
 		return new ModelAndView("redirect:/articles.html");
