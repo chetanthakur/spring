@@ -12,10 +12,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository("userDao")
-@Transactional
+//@Transactional
 public class UserDaoImpl implements UserDao {
 	
 	private final static Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
@@ -25,6 +24,7 @@ public class UserDaoImpl implements UserDao {
 	
 
 	public void saveUser(User user) {
+		
 		Meeting meeting1 = new Meeting("Quaterly Sales meeting");
         Meeting meeting2 = new Meeting("Weekly Status meeting");
          
@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
         
         sessionFactory.getCurrentSession().save(employee1);
         sessionFactory.getCurrentSession().save(employee2);
-        
+        user.setUsername(null);
 		sessionFactory.getCurrentSession().saveOrUpdate(user);
 		
 	}
