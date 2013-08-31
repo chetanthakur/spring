@@ -1,5 +1,8 @@
 package net.devmanuals.dao;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -51,15 +54,24 @@ public class ArticleDaoImpl implements ArticleDao {
 				.createAlias("verb", "verbAli")
 				.createAlias("object", "objectAli")
 				.add(Restrictions.eq("verbAli.urlId", "http://localhost:8080/submit"))
-				.add(Restrictions.eq("objectAli.url", "http://localhost:8080/assignment/100"))
-				.setProjection(Projections.projectionList().add(Projections.groupProperty("users")));
+				.add(Restrictions.eq("objectAli.url", "http://localhost:8080/assignment/100")).addOrder(Order.desc("store"))
+				.setProjection(Projections.projectionList().add(Projections.groupProperty("users"))).addOrder(Order.desc("store"));
 
 		List<Users> statements = (List<Users>) criteria.list();
-
+		
 		for (Users statement : statements) {
 			System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
 					+ statement.getStatements().size());
-			for (Statement users : statement.getStatements()) {
+			
+			List<Statement> statements2= new ArrayList(statement.getStatements());
+			
+			Collections.sort(statements2, new Comparator<Statement>(){
+		           public int compare (Statement m1, Statement m2){
+		               return m2.getStore().compareTo(m1.getStore());
+		           }
+		       });
+			
+			for (Statement users : statements2) {
 				System.out.println("pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"
 						+ users.getStore());
 			}
