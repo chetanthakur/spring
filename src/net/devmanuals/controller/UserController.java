@@ -21,27 +21,24 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addUser(@ModelAttribute("user") Users user ,
-			BindingResult result) {
+	public ModelAndView addUser(@ModelAttribute("user") Users user, BindingResult result) {
 		return new ModelAndView("addUser");
 	}
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(@ModelAttribute("user") Users  user,
-			BindingResult result) {
+	public ModelAndView saveUser(@ModelAttribute("user") Users user, BindingResult result) {
 		user.setPasswordType(PasswordType.ENCRYPTED);
 		user.setPasswordHash(user.getPassword());
 		userService.addUser(user);
 		return new ModelAndView("redirect:/articles.html");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listUser() {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("users",  userService.listUsers());
+		model.put("users", userService.listUsers());
 		return new ModelAndView("userList", model);
 	}
 

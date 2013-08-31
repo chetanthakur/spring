@@ -41,38 +41,36 @@ public class Users implements java.io.Serializable {
 	private Date lastLogin;
 	private Date createdAt;
 	private Date modifiedAt;
-	
+
 	@Column(name = "salt")
 	private String salt = UUID.randomUUID().toString();
+
 	public String getSalt() {
-		return salt=UUID.randomUUID().toString();
+		return salt = UUID.randomUUID().toString();
 	}
 
 	public void setSalt(String salt) {
-		this.salt = UUID.randomUUID().toString();;
+		this.salt = UUID.randomUUID().toString();
+		;
 	}
 
 	private Set<Statement> statements = new HashSet<Statement>(0);
 	private final static String globalSalt = "c6241e1015499102";
-	
+
 	public static enum PasswordType {
 		HASH, ENCRYPTED;
 	}
-	
+
 	public static enum UserStatus {
-		ACTIVE,
-		DISABLED,
-		DELETED,
-		EXPIRED,
-		UNCONFIRMED_EMAIL;
+		ACTIVE, DISABLED, DELETED, EXPIRED, UNCONFIRMED_EMAIL;
 	}
 
 	public Users() {
 	}
 
-	public Users(String username, String password, PasswordType passwordType,
-			String firstName, String lastName, String email, Date lastLogin,
-			Date createdAt, Date modifiedAt, String salt) {
+	public Users(String username, String password, PasswordType passwordType, String firstName,
+			String lastName, String email, Date lastLogin, Date createdAt, Date modifiedAt,
+			String salt) {
 		this.username = username;
 		this.password = password;
 		this.passwordType = passwordType;
@@ -85,10 +83,9 @@ public class Users implements java.io.Serializable {
 		this.salt = salt;
 	}
 
-	public Users(String username, String password, PasswordType passwordType,
-			String firstName, String lastName, String email, Date lastLogin,
-			Date createdAt, Date modifiedAt, String salt,
-			Set<Statement> statements) {
+	public Users(String username, String password, PasswordType passwordType, String firstName,
+			String lastName, String email, Date lastLogin, Date createdAt, Date modifiedAt,
+			String salt, Set<Statement> statements) {
 		this.username = username;
 		this.password = password;
 		this.passwordType = passwordType;
@@ -201,7 +198,7 @@ public class Users implements java.io.Serializable {
 	public void setStatements(Set<Statement> statements) {
 		this.statements = statements;
 	}
-	
+
 	/**
 	 * Helper method to verify if the password is the correct one
 	 * 
@@ -212,38 +209,33 @@ public class Users implements java.io.Serializable {
 		if (this.passwordType == PasswordType.HASH) {
 			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt);
 			return encoder.matches(plainPassword, this.password);
-		}
-		else if (this.passwordType == PasswordType.ENCRYPTED) {
+		} else if (this.passwordType == PasswordType.ENCRYPTED) {
 			TextEncryptor encoder = Encryptors.queryableText(this.salt, globalSalt);
 			String decryptedPassword = encoder.decrypt(this.password);
 			return decryptedPassword.equals(plainPassword);
-		}
-		else {
+		} else {
 			throw new RuntimeException("Unknown password type for user: " + this.userId);
 		}
 	}
-	
-	
+
 	/**
-	 * Retrieve the password for a student. If the user is not a student, this method will
-	 * throws a runtime exception as those are stored as one-way hash.
+	 * Retrieve the password for a student. If the user is not a student, this
+	 * method will throws a runtime exception as those are stored as one-way
+	 * hash.
 	 * 
 	 * @return
-	 *//*
-	public final String getDecryptedPassword() {
-		if (this.passwordType == PasswordType.HASH) {
-			throw new RuntimeException("Unable to decrypt a hashed password, user id: " + this.userId);
-		}
-		else {
-			TextEncryptor encoder = Encryptors.queryableText(this.salt, globalSalt);
-			String decryptedPassword = encoder.decrypt(this.password);
-			return decryptedPassword;
-		}
-	}
-	*/
+	 */
+	/*
+	 * public final String getDecryptedPassword() { if (this.passwordType ==
+	 * PasswordType.HASH) { throw new
+	 * RuntimeException("Unable to decrypt a hashed password, user id: " +
+	 * this.userId); } else { TextEncryptor encoder =
+	 * Encryptors.queryableText(this.salt, globalSalt); String decryptedPassword
+	 * = encoder.decrypt(this.password); return decryptedPassword; } }
+	 */
 	/**
-	 * Setting for password and bash on password type it will use a hash or an two-way encryption schema
-	 * to store the password.
+	 * Setting for password and bash on password type it will use a hash or an
+	 * two-way encryption schema to store the password.
 	 * 
 	 * @param plainPassword
 	 */
@@ -251,8 +243,7 @@ public class Users implements java.io.Serializable {
 		if (this.passwordType == PasswordType.HASH) {
 			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt);
 			this.password = encoder.encode(plainPassword);
-		}
-		else if (this.passwordType == PasswordType.ENCRYPTED) {
+		} else if (this.passwordType == PasswordType.ENCRYPTED) {
 			TextEncryptor encoder = Encryptors.queryableText(this.salt, globalSalt);
 			this.password = encoder.encrypt(plainPassword);
 		}

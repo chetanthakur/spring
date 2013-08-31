@@ -35,7 +35,7 @@ public class Meeting implements java.io.Serializable {
 		this.subject = subject;
 		this.meetingDate = meetingDate;
 	}
-	
+
 	public Meeting(String subject) {
 		this.subject = subject;
 	}

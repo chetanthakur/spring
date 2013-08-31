@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("articleService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class ArticleServiceImpl implements ArticleService {
-	
-	private final static Logger LOGGER = Logger.getLogger(ArticleServiceImpl.class); 
-	
+
+	private final static Logger LOGGER = Logger.getLogger(ArticleServiceImpl.class);
+
 	@Autowired
 	private ArticleDao articleDao;
-	
+
 	public ArticleServiceImpl() {
 	}
 

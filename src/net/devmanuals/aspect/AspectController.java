@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class AspectController {
-	
-	private final static Logger LOGGER = Logger.getLogger(AspectController.class); 
+
+	private final static Logger LOGGER = Logger.getLogger(AspectController.class);
 
 	@Before("execution(* net.devmanuals.service.*.*(..))")
 	public void beforeAnyService() {

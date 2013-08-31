@@ -11,7 +11,7 @@ public interface ArticleService {
 	public void addArticle(Article article);
 
 	public List<Article> listArticles();
-	
+
 	public List<Employee> listEmployee();
 
 	public List<Statement> getstatement();

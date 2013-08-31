@@ -32,37 +32,35 @@ public class ArticleDaoImpl implements ArticleDao {
 	// To get list of all articles
 	@SuppressWarnings("unchecked")
 	public List<Article> listArticles() {
-		return (List<Article>) sessionFactory.getCurrentSession()
-				.createCriteria(Article.class).list();
+		return (List<Article>) sessionFactory.getCurrentSession().createCriteria(Article.class)
+				.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Employee> listEmployee() {
-		return (List<Employee>) sessionFactory.getCurrentSession()
-				.createCriteria(Employee.class).list();
+		return (List<Employee>) sessionFactory.getCurrentSession().createCriteria(Employee.class)
+				.list();
 	}
 
 	@Override
 	public List<Statement> getstatement() {
-		Criteria criteria= sessionFactory
+		Criteria criteria = sessionFactory
 				.getCurrentSession()
 				.createCriteria(Statement.class)
 				.createAlias("verb", "verbAli")
 				.createAlias("object", "objectAli")
-				.add(Restrictions.eq("verbAli.urlId",
-						"http://localhost:8080/submit"))
-				.add(Restrictions.eq("objectAli.url",
-						"http://localhost:8080/assignment/100"))
-				.setProjection(
-						Projections.projectionList().add(
-								Projections.groupProperty("users")));
-		
-		List<Users> statements=(List<Users>)criteria.list();
-		
+				.add(Restrictions.eq("verbAli.urlId", "http://localhost:8080/submit"))
+				.add(Restrictions.eq("objectAli.url", "http://localhost:8080/assignment/100"))
+				.setProjection(Projections.projectionList().add(Projections.groupProperty("users")));
+
+		List<Users> statements = (List<Users>) criteria.list();
+
 		for (Users statement : statements) {
-			System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"+statement.getStatements().size());
+			System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+					+ statement.getStatements().size());
 			for (Statement users : statement.getStatements()) {
-				System.out.println("pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"+users.getStore());
+				System.out.println("pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"
+						+ users.getStore());
 			}
 		}
 

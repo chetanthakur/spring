@@ -35,7 +35,7 @@ public class Employee implements java.io.Serializable {
 		this.lastname = lastname;
 		this.meetings = meetings;
 	}
-	
+
 	public Employee(String firstname, String lastname) {
 		this.firstname = firstname;
 		this.lastname = lastname;

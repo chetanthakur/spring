@@ -11,6 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserService {
 
 	public void addUser(Users user);
-	
+
 	public List<Users> listUsers();
 }

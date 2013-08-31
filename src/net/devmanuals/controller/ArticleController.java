@@ -22,11 +22,10 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveArticle(@ModelAttribute("article") Article  article,
-			BindingResult result) {
-		articleService.addArticle( article);
+	public ModelAndView saveArticle(@ModelAttribute("article") Article article, BindingResult result) {
+		articleService.addArticle(article);
 		return new ModelAndView("redirect:/articles.html");
 	}
 
@@ -34,15 +33,14 @@ public class ArticleController {
 	public ModelAndView listArticles() {
 		System.out.println("list the artilces controller");
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<Statement> statement= articleService.getstatement();
+		List<Statement> statement = articleService.getstatement();
 		model.put("employee", articleService.listEmployee());
-		model.put("articles",  articleService.listArticles());
+		model.put("articles", articleService.listArticles());
 		return new ModelAndView("articlesList", model);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addArticle(@ModelAttribute("article") Article article,
-			BindingResult result) {
+	public ModelAndView addArticle(@ModelAttribute("article") Article article, BindingResult result) {
 		return new ModelAndView("addArticle");
 	}
 

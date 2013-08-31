@@ -12,26 +12,26 @@ public class SpringUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = -6258905107308258364L;
 	private Users user;
-	
+
 	public static Users getUserFromSecurityContext() {
-		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated() && 
-				SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof SpringUserDetails) {
-			SpringUserDetails tmUserDetails = (SpringUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
+				&& SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof SpringUserDetails) {
+			SpringUserDetails tmUserDetails = (SpringUserDetails) SecurityContextHolder
+					.getContext().getAuthentication().getPrincipal();
 			return tmUserDetails.getUser();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
-	
+
 	public SpringUserDetails(Users user) {
 		this.user = user;
 	}
-	
+
 	public Users getUser() {
 		return this.user;
 	}
-	
+
 	public boolean verifyPassword(String plainPassword) {
 		return this.user.verifyPassword(plainPassword);
 	}
