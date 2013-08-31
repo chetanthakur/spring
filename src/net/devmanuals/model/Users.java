@@ -4,8 +4,10 @@ package net.devmanuals.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,10 +53,9 @@ public class Users implements java.io.Serializable {
 
 	public void setSalt(String salt) {
 		this.salt = UUID.randomUUID().toString();
-		;
 	}
 
-	private Set<Statement> statements = new HashSet<Statement>(0);
+	private Set<Statement> statements = new LinkedHashSet<Statement>(0);
 	private final static String globalSalt = "c6241e1015499102";
 
 	public static enum PasswordType {
