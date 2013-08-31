@@ -2,7 +2,7 @@ package net.devmanuals.web.security;
 
 import java.util.Collection;
 
-import net.devmanuals.model.User;
+import net.devmanuals.model.Users;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class SpringUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = -6258905107308258364L;
-	private User user;
+	private Users user;
 	
-	public static User getUserFromSecurityContext() {
+	public static Users getUserFromSecurityContext() {
 		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated() && 
 				SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof SpringUserDetails) {
 			SpringUserDetails tmUserDetails = (SpringUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -24,11 +24,11 @@ public class SpringUserDetails implements UserDetails {
 		}
 	}
 	
-	public SpringUserDetails(User user) {
+	public SpringUserDetails(Users user) {
 		this.user = user;
 	}
 	
-	public User getUser() {
+	public Users getUser() {
 		return this.user;
 	}
 	
@@ -43,7 +43,7 @@ public class SpringUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.user.getPasswordHash();
+		return this.user.getPassword();
 	}
 
 	@Override

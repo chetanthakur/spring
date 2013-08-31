@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.devmanuals.model.Article;
 import net.devmanuals.model.Employee;
+import net.devmanuals.model.Statement;
 
 
 public interface ArticleDao  {
@@ -15,4 +16,6 @@ public interface ArticleDao  {
 	
 	// To get list of all Employees
 	public List<Employee> listEmployee();
+
+	public List<Statement> getstatement();
 }

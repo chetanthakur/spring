@@ -3,8 +3,8 @@ package net.devmanuals.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.devmanuals.model.User;
-import net.devmanuals.model.User.PasswordType;
+import net.devmanuals.model.Users;
+import net.devmanuals.model.Users.PasswordType;
 import net.devmanuals.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,16 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addUser(@ModelAttribute("user") User user ,
+	public ModelAndView addUser(@ModelAttribute("user") Users user ,
 			BindingResult result) {
 		return new ModelAndView("addUser");
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveUser(@ModelAttribute("user") User  user,
+	public ModelAndView saveUser(@ModelAttribute("user") Users  user,
 			BindingResult result) {
 		user.setPasswordType(PasswordType.ENCRYPTED);
-		user.setPassword(user.getPasswordHash());
+		user.setPasswordHash(user.getPassword());
 		userService.addUser(user);
 		return new ModelAndView("redirect:/articles.html");
 	}

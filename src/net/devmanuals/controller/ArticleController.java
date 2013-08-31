@@ -1,9 +1,11 @@
 package net.devmanuals.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.devmanuals.model.Article;
+import net.devmanuals.model.Statement;
 import net.devmanuals.service.ArticleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class ArticleController {
 	public ModelAndView listArticles() {
 		System.out.println("list the artilces controller");
 		Map<String, Object> model = new HashMap<String, Object>();
+		List<Statement> statement= articleService.getstatement();
 		model.put("employee", articleService.listEmployee());
 		model.put("articles",  articleService.listArticles());
 		return new ModelAndView("articlesList", model);

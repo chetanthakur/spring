@@ -2,7 +2,7 @@
 package net.devmanuals.web.security;
 
 import net.devmanuals.dao.UserDao;
-import net.devmanuals.model.User;
+import net.devmanuals.model.Users;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
-		User user = userDao.findByUserName(username);
+		Users user = userDao.findByUserName(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Username not found for : " + username);
 		}

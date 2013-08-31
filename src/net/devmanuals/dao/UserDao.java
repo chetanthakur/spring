@@ -2,14 +2,14 @@ package net.devmanuals.dao;
 
 import java.util.List;
 
-import net.devmanuals.model.User;
+import net.devmanuals.model.Users;
 
 
 public interface UserDao  {
 	
-	public void saveUser ( User user );
+	public void saveUser ( Users user );
 	
-	public List<User> listUsers();
+	public List<Users> listUsers();
 	
-	public User findByUserName(String username);	
+	public Users findByUserName(String username);	
 }

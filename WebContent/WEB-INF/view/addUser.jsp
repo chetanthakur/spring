@@ -11,22 +11,18 @@
 	<form:label path="username">User Name:</form:label>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<form:input path="username" size="46"/>
-	<br></br>
-	<form:label path="passwordHash">Password :</form:label>
-	<form:password path="passwordHash" />
+	<br>
+	<form:label path="password">Password :</form:label>
+	<form:password path="password" />
 	<br />
-	<form:label path="firstname">First name :</form:label>
-	<form:input path="firstname" />
-	<br />
-	<br />
-	<form:label path="lastname">Last name :</form:label>
-	<form:input path="lastname" />
-	<br />
-	
+	<form:label path="firstName">First name :</form:label>
+	<form:input path="firstName" />
+	<br>
+	<form:label path="lastName">Last name :</form:label>
+	<form:input path="lastName" />
 	<br />
 	<form:label path="email">Email:</form:label>
 	<form:input path="email" />
-	<br />
 	
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

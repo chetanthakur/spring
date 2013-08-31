@@ -5,6 +5,7 @@ import java.util.List;
 import net.devmanuals.dao.ArticleDao;
 import net.devmanuals.model.Article;
 import net.devmanuals.model.Employee;
+import net.devmanuals.model.Statement;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class ArticleServiceImpl implements ArticleService {
 
 	public List<Employee> listEmployee() {
 		return articleDao.listEmployee();
+	}
+
+	@Override
+	public List<Statement> getstatement() {
+		return articleDao.getstatement();
 	}
 
 }

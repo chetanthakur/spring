@@ -21,7 +21,7 @@
 				<td><c:out value="${article.articleId}"/></td>
 				<td><c:out value="${article.articleName}"/></td>
 				<td><c:out value="${article.articleDesc}"/></td>
-				<td><c:out value="${article.addedDate}"/></td>
+				<td><c:out value="${article.dateAdded}"/></td>
 			</tr>
 		</c:forEach>
 	</table>
