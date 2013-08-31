@@ -56,27 +56,28 @@ public class ArticleDaoImpl implements ArticleDao {
 				.add(Restrictions.eq("verbAli.urlId", "http://localhost:8080/submit"))
 				.add(Restrictions.eq("objectAli.url", "http://localhost:8080/assignment/100")).addOrder(Order.desc("store"))
 				.setProjection(Projections.projectionList().add(Projections.groupProperty("users"))).addOrder(Order.desc("store"));
-
+		
+		
+		
 		List<Users> statements = (List<Users>) criteria.list();
 		
-		for (Users statement : statements) {
-			System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
-					+ statement.getStatements().size());
-			
-			List<Statement> statements2= new ArrayList(statement.getStatements());
-			
-			Collections.sort(statements2, new Comparator<Statement>(){
-		           public int compare (Statement m1, Statement m2){
-		               return m2.getStore().compareTo(m1.getStore());
-		           }
-		       });
-			
-			for (Statement users : statements2) {
-				System.out.println("pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"
-						+ users.getStore());
-			}
+		Criteria criteria1 = sessionFactory
+				.getCurrentSession()
+				.createCriteria(Statement.class)
+				.createAlias("verb", "verbAli")
+				.createAlias("object", "objectAli")
+				.add(Restrictions.eq("verbAli.urlId",
+						"http://localhost:8080/submit"))
+				.add(Restrictions.eq("objectAli.url",
+						"http://localhost:8080/assignment/100"))
+				.add(Restrictions.in("users", statements))
+				.addOrder(Order.desc("store"));
+		
+		List<Statement> statements1 = (List<Statement>) criteria1.list();
+		
+		for (Statement statement : statements1) {
+			System.out.println("pppppppppppppppppppppppppppppppppppppppppppp"+statement.getStore());
 		}
-
 		return null;
 	}
 }
