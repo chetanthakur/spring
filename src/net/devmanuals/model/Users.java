@@ -3,11 +3,9 @@ package net.devmanuals.model;
 // Generated Aug 31, 2013 2:18:56 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,11 +46,11 @@ public class Users implements java.io.Serializable {
 	private String salt = UUID.randomUUID().toString();
 
 	public String getSalt() {
-		return salt = UUID.randomUUID().toString();
+		return salt;
 	}
 
 	public void setSalt(String salt) {
-		this.salt = UUID.randomUUID().toString();
+		this.salt = salt;
 	}
 
 	private Set<Statement> statements = new LinkedHashSet<Statement>(0);
@@ -211,9 +209,9 @@ public class Users implements java.io.Serializable {
 			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt);
 			return encoder.matches(plainPassword, this.password);
 		} else if (this.passwordType == PasswordType.ENCRYPTED) {
-			TextEncryptor encoder = Encryptors.queryableText(this.salt, globalSalt);
-			String decryptedPassword = encoder.decrypt(this.password);
-			return decryptedPassword.equals(plainPassword);
+			TextEncryptor encoder = Encryptors.queryableText(this.salt.trim(), globalSalt.trim());
+			String decryptedPassword = encoder.decrypt(this.password.trim());
+			return decryptedPassword.equals(plainPassword.trim());
 		} else {
 			throw new RuntimeException("Unknown password type for user: " + this.userId);
 		}
@@ -242,15 +240,27 @@ public class Users implements java.io.Serializable {
 	 */
 	public final void setPasswordHash(String plainPassword) {
 		if (this.passwordType == PasswordType.HASH) {
-			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt);
-			this.password = encoder.encode(plainPassword);
+			StandardPasswordEncoder encoder = new StandardPasswordEncoder(this.salt.trim());
+			this.password = encoder.encode(plainPassword.trim());
 		} else if (this.passwordType == PasswordType.ENCRYPTED) {
-			TextEncryptor encoder = Encryptors.queryableText(this.salt, globalSalt);
-			this.password = encoder.encrypt(plainPassword);
+			TextEncryptor encoder = Encryptors.queryableText(this.salt.trim(), globalSalt.trim());
+			this.password = encoder.encrypt(plainPassword.trim());
 		}
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public final String decryptedPassword() {
+		if (this.passwordType == PasswordType.HASH) {
+			throw new RuntimeException("Unable to decrypt a hashed password, user id: "
+					+ this.userId);
+		} else {
+
+			TextEncryptor encoder = Encryptors.queryableText(this.salt.trim(), globalSalt.trim());
+			String decryptedPassword = encoder.decrypt(this.password.trim());
+			return decryptedPassword;
+		}
 	}
 }

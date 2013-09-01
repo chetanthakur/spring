@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -25,6 +24,7 @@ public class UserServiceImpl implements UserService {
 		userDao.saveUser(user);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Users> listUsers() {
 		return userDao.listUsers();
 	}

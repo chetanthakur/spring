@@ -19,9 +19,9 @@
 		<c:forEach items="${users}" var="user">
 			<tr>
 				<td><c:out value="${user.username}"/></td>
-				<td><c:out value="${user.firstname}"/></td>
-				<td><c:out value="${user.lastname}"/></td>
-				<td><c:out value="${user.getDecryptedPassword()}"/></td>
+				<td><c:out value="${user.firstName}"/></td>
+				<td><c:out value="${user.lastName}"/></td>
+				<td><c:out value="${user.decryptedPassword()}"/></td>
 			</tr>
 		</c:forEach>
 	</table>
